@@ -7,7 +7,8 @@
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "test": "mocha --require ./test/bootstrap"
   },
   "dependencies": {
     "cors": "^2.8.4",
@@ -16,8 +17,11 @@
     "firebase-functions": "^2.0.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
     "eslint": "^4.12.0",
-    "eslint-plugin-promise": "^3.6.0"
+    "eslint-plugin-promise": "^3.6.0",
+    "mocha": "^5.2.0"
   },
   "private": true
 }
