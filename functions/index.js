@@ -9,7 +9,7 @@ const routes = express.Router();
 // Main Routes
 routes.get('/moves', moves)
 
-app.use(cors({ origin: true }));
+app.use(cors());
 // Firebase rewrite: https://myapp.firebaseapp.com/api/{routes}
 app.use('/api', routes);
 
