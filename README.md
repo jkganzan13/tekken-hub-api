@@ -1,2 +1,6 @@
-# tekken-hub-api
-Tekken Hub API
+# Tekken Hub API
+
+
+### Endpoints:
+
+<code>/moves</code> Returns frame data for all characters
