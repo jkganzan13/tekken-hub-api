@@ -1,5 +1,5 @@
-const data = require('./data.json');
+const data = require('../../data/characters.json');
 
 const fetchFrameData = (req, res) => res.json(data);
 
-exports.fetchFrameData = fetchFrameData;
+exports.get = fetchFrameData;

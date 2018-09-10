@@ -1,6 +1,6 @@
 const chai = require('chai');
-const movelist = require('../routes/moves/data.json');
-const api = require('../').api;
+const movelist = require('../../data/characters.json');
+const api = require('../../').api;
 
 describe('/moves', () => {
   describe ('GET', () => {
