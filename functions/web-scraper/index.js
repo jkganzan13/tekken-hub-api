@@ -1,52 +1,7 @@
+const fs = require('fs');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
-
-/**
- * TODO
- * - Scrape all characters *CHECK URL*
- * - Save to json
- * - Upload to firebase storage
- * - On build, download json to data/characters.json
- * - (optional) Cron job for webscraper every 24hrs
- */
-
-const characters = [
-  'akuma',
-  'alisa',
-  'asuka',
-  'bob',
-  'devil-jin',
-  'dragunov',
-  'eddy',
-  'eliza',
-  'feng',
-  'gigas',
-  'heihachi',
-  'hwoarang',
-  'jack-7',
-  'jin',
-  'josie',
-  'katarina',
-  'kazumi',
-  'kazuya',
-  'king',
-  'kuma',
-  'lars',
-  'law',
-  'lee',
-  'leo',
-  'lili',
-  'lucky-chloe',
-  'master-raven',
-  'miguel',
-  'nina',
-  'noctis',
-  'paul',
-  'shaheen',
-  'steve',
-  'ling',
-  'yoshimitsu',
-];
+const characters = require('../data/characters');
 
 const getOptions = name => ({
   uri: `http://rbnorway.org/${name}-t7-frames/`,
@@ -72,12 +27,24 @@ const scrapeByName = name =>
           notes: td.eq(7).text(),
         };
       });
-      return moves;
+      return moves.get();
     });
 
+const writeToJson = results =>
+  new Promise((res, rej) => {
+    fs.writeFile('./data/result.json', JSON.stringify(results, null, 2), 'utf8', (err) => {
+      if (err) rej(err);
+      res('Results written to data/result.json')
+    });
+  });
+
 const webscraper = () => {
-  const promises = characters.map(scrapeByName);
+  console.log('Scraping RBNorway');
+  const promises = characters.map(c =>
+    scrapeByName(c.key)
+    .then(data => Object.assign({}, c, { data })));
   return Promise.all(promises)
+    .then(writeToJson)
     .catch(e => console.log(e))
 };
 

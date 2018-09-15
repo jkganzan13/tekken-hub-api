@@ -8,7 +8,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "mocha --recursive --require ./test/bootstrap"
+    "test": "mocha --recursive --require ./test/bootstrap --timeout 60000"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
