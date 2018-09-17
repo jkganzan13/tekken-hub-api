@@ -1,15 +1,15 @@
 const combo = {
-  id: 'id123',
-  submittedBy: 'user123',
-  combo: 'd/f+2, 3,1,4, d/f+1,2 S! HS',
-  damage: 60,
-  character: 'Kazuya',
-  numRatings: 1,
-  ratings: [{
-    userId: 'user999',
-    upvote: true,
+  "id": "id123",
+  "submittedBy": "user123",
+  "combo": "d/f+2, 3,1,4, d/f+1,2 S! HS",
+  "damage": 60,
+  "character": "Kazuya",
+  "numRatings": 1,
+  "ratings": [{
+    "userId": "user999",
+    "upvote": true
   }]
-};
+}
 
 const makeEvent = event => Object.assign({}, {
   resource: '/combos',
@@ -22,10 +22,6 @@ const makeEvent = event => Object.assign({}, {
   pathParameters: null,
   stageVariables: {
     stageName: 'dev'
-  },
-  requestContext: {
-    path: '/combos',
-    resourcePath: '/combos',
   },
   body: null
 }, event);
@@ -66,18 +62,23 @@ describe('/combos/:userId', () => {
     });
   });
 
-  describe('PUT', () => {
+  describe.only('PUT', () => {
     it('should return something', (done) => {
-      const c = Object.assign({}, combo, { ratings: [] })
+      const ratings = [{
+        "userId": "user111",
+        "upvote": true
+      }];
       const event = makeEvent({
         httpMethod: 'PUT',
-        body: JSON.stringify(c),
+        resource: '/combos/{id}/{submittedBy}',
+        path: '/combos/id123/user111233',
+        body: JSON.stringify({ ratings }),
       });
       executeLambda(event, envs)
         .then((res) => {
           const body = JSON.parse(res.body);
-          console.log(body)
-          expect(body).to.eql(c);
+          const expected = Object.assign({}, combo, { ratings })
+          expect(body).to.eql(expected);
           done();
         }).catch(done);
     });

@@ -1,9 +1,5 @@
 const dynamoose = require('dynamoose');
 
-dynamoose.AWS.config.update({
-  region: 'us-west-2',
-});
-
 module.exports = () => new dynamoose.Schema({
   id: {
     type: String,

@@ -19,7 +19,7 @@ module.exports.post = async (req, res) => {
 
 module.exports.put = async (req, res) => {
   const Combo = getModel();
-  const combo = new Combo(req.body);
-  const response = await combo.put();
+  const toUpdate = Object.assign({ id: req.params.id, submittedBy: req.params.submittedBy }, req.body);
+  const response = await Combo.update(toUpdate);
   res.json(response);
 };

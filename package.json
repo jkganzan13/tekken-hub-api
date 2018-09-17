@@ -4,6 +4,7 @@
   "description": "<code>/moves</code> Returns frame data for all characters",
   "main": "src/index.js",
   "scripts": {
+    "deploy": "serverless deploy",
     "test": "mocha --recursive --require ./test/index --timeout 10000"
   },
   "repository": {
@@ -30,6 +31,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "lambda-local": "^1.5.1",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "serverless": "^1.31.0"
   }
 }
