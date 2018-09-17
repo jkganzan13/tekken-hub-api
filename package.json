@@ -1,0 +1,35 @@
+{
+  "name": "tekken-hub-api",
+  "version": "1.0.0",
+  "description": "<code>/moves</code> Returns frame data for all characters",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha --recursive --require ./test/index --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkganzan13/tekken-hub-api.git"
+  },
+  "keywords": [
+    "tekken"
+  ],
+  "author": "jkganzan13",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkganzan13/tekken-hub-api/issues"
+  },
+  "homepage": "https://github.com/jkganzan13/tekken-hub-api#readme",
+  "dependencies": {
+    "aws-sdk": "^2.315.0",
+    "body-parser": "^1.18.3",
+    "dynamoose": "^0.8.7",
+    "express": "^4.16.3",
+    "serverless-http": "^1.6.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "lambda-local": "^1.5.1",
+    "mocha": "^5.2.0"
+  }
+}
