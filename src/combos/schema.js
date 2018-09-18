@@ -11,7 +11,7 @@ module.exports = () => new dynamoose.Schema({
   },
   combo: String,
   damage: Number,
-  character: String,
+  name: String,
   numRatings: Number,
   ratings: {
     type: 'list',

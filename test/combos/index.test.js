@@ -3,7 +3,7 @@ const combo = {
   "submittedBy": "user123",
   "combo": "d/f+2, 3,1,4, d/f+1,2 S! HS",
   "damage": 60,
-  "character": "Kazuya",
+  "name": "Kazuya",
   "numRatings": 1,
   "ratings": [{
     "userId": "user999",
