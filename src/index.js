@@ -2,6 +2,7 @@ const serverless = require('serverless-http');
 const express = require('express');
 const dynamoose = require('dynamoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const combos = require('./combos');
 
 // Dynamoose config
@@ -13,6 +14,7 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors());
 
 // Routes
 app.get('/', (req, res) => res.send('hello'));
