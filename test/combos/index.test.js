@@ -26,7 +26,7 @@ const makeEvent = event => Object.assign({}, {
   body: null
 }, event);
 
-describe('/combos/:userId', () => {
+describe('Integration tests - /combos/:userId', () => {
   let envs;
   before(() => {
     envs = {
@@ -35,8 +35,24 @@ describe('/combos/:userId', () => {
   });
 
   describe('GET', () => {
-    it('should return something', (done) => {
+    it('should return array', (done) => {
       const event = makeEvent();
+      executeLambda(event, envs)
+        .then((res) => {
+          const body = JSON.parse(res.body);
+          console.log(body)
+          expect(Array.isArray(body)).to.be.true;
+          done();
+        }).catch(done);
+    });
+    it('should filter by query parameters', (done) => {
+      const event = makeEvent({
+        queryStringParameters: {
+          name: `Kazuya, Devil Jin`,
+          combo: 'd/f+2',
+          damage: '60',
+        }
+      });
       executeLambda(event, envs)
         .then((res) => {
           const body = JSON.parse(res.body);
@@ -62,7 +78,7 @@ describe('/combos/:userId', () => {
     });
   });
 
-  describe.only('PUT', () => {
+  describe('PUT', () => {
     it('should return something', (done) => {
       const ratings = [{
         "userId": "user111",
