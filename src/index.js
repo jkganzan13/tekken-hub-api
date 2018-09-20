@@ -20,6 +20,6 @@ app.use(cors());
 app.get('/', (req, res) => res.send('hello'));
 app.get('/combos', combos.get);
 app.post('/combos', combos.post);
-app.put('/combos/:id/:submittedBy', combos.put);
+app.put('/combos/:id', combos.put);
 
 module.exports.handler = serverless(app);

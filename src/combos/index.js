@@ -1,25 +1,20 @@
-const dynamoose = require('dynamoose');
-const getSchema = require('./schema');
-
-const schema = getSchema();
-const getModel = () => dynamoose.model(process.env.COMBOS_TABLE, schema);
+const {
+  buildGetCombosQuery,
+  buildPostCombosQuery,
+  buildPutCombosQuery,
+} = require('./util');
 
 module.exports.get = async (req, res) => {
-  const Combo = getModel();
-  const response = await Combo.scan().all().exec();
-  res.json(response);
+  const q = await buildGetCombosQuery(req.query);
+  res.json(q);
 };
 
 module.exports.post = async (req, res) => {
-  const Combo = getModel();
-  const combo = new Combo(req.body);
-  const response = await combo.save();
+  const response = await buildPostCombosQuery(req.body);
   res.json(response);
 };
 
 module.exports.put = async (req, res) => {
-  const Combo = getModel();
-  const toUpdate = Object.assign({ id: req.params.id, submittedBy: req.params.submittedBy }, req.body);
-  const response = await Combo.update(toUpdate);
+  const response = await buildPutCombosQuery(req.params.id, req.body);
   res.json(response);
 };

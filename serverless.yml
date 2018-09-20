@@ -9,31 +9,27 @@ provider:
   environment:
     STAGE: ${opt:stage, self:provider.stage}
     COMBOS_TABLE: Combos-${opt:stage, self:provider.stage}
+    DB_NAME: tekken_hub_${opt:stage, self:provider.stage}
+    DB_HOST: ${env:DB_NAME}
+    DB_PORT: ${env:DB_PORT}
+    DB_USER: ${env:DB_USER}
+    DB_PWD: ${env:DB_PWD}
 
 functions:
   tekken-hub-api:
     handler: src/index.handler
     name: tekken-hub-api-${opt:stage, self:provider.stage}
+    vpc:
+      securityGroupIds:
+        - sg-0e03e11b280ea490c
+      subnetIds:
+        - subnet-02628d0813306cd33
+        - subnet-0ebe8e743a79daaba
+        - subnet-01499f88aa297a57c
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
 
-resources:
-  Resources:
-    CombosDynamoDBTable:
-      Type: 'AWS::DynamoDB::Table'
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-          - AttributeName: submittedBy
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-          - AttributeName: submittedBy
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: Combos-${opt:stage, self:provider.stage}
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline

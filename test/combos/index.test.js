@@ -30,7 +30,12 @@ describe('Integration tests - /combos/:userId', () => {
   let envs;
   before(() => {
     envs = {
-      COMBOS_TABLE: 'Combos-dev'
+      COMBOS_TABLE: 'Combos-dev',
+      DB_HOST     : '127.0.0.1',
+      DB_PORT     : 3306,
+      DB_USER     : 'root',
+      DB_PWD      : 'admin',
+      DB_NAME     : 'tekken_hub_dev',
     }
   });
 
@@ -45,7 +50,7 @@ describe('Integration tests - /combos/:userId', () => {
           done();
         }).catch(done);
     });
-    it('should filter by query parameters', (done) => {
+    it.only('should filter by query parameters', (done) => {
       const event = makeEvent({
         queryStringParameters: {
           name: `Kazuya, Devil Jin`,
