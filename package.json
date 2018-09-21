@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "deploy": "serverless deploy",
-    "local": "serverless offline start -r us-west-2 --port 3001",
+    "local": "serverless offline start --stage local -r us-west-2 --port 3001",
     "test": "mocha --recursive --require ./test/index --timeout 10000"
   },
   "repository": {
