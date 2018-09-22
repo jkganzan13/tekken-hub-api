@@ -8,11 +8,8 @@ ENVIRONMENT=$1
 export GIT_BRANCH=${BITBUCKET_BRANCH:-n/a}
 export GIT_COMMIT=$(git rev-parse HEAD | cut -c1-7)
 
-source ./scripts/tag.sh
-export GIT_TAG=${BUILD_TAG:-n/a}
-
 # debug
 echo "about to deploy for '${ENVIRONMENT}' for tag '${GIT_TAG}' on commit '${GIT_COMMIT}'"
 
 # serverless deploy
-npm run deploy -- --stage ${ENVIRONMENT} --force
+npm run deploy -- --stage ${ENVIRONMENT}

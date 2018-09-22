@@ -4,8 +4,11 @@ node_js:
 cache:
   directories:
     - node_modules
+branches:
+  only:
+  - master
 deploy:
   - provider: script
-    script: bash scripts/deploy.sh prod
+    script: bash scripts/deploy.sh dev
     on:
       branch: master
