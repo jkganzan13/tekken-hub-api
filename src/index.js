@@ -4,6 +4,9 @@ const dynamoose = require('dynamoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const combos = require('./combos');
+const ratings = require('./ratings');
+
+// TODO: replace user IDs with decoded jwt
 
 // Dynamoose config
 dynamoose.AWS.config.update({
@@ -17,9 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routes
-app.get('/', (req, res) => res.send('hello'));
-app.get('/combos', combos.get);
-app.post('/combos', combos.post);
-app.put('/combos/:id', combos.put);
+combos(app);
+ratings(app);
 
 module.exports.handler = serverless(app);

@@ -1,8 +1,8 @@
-const moment = require('moment');
-const query = require('../common/sqlService');
-
-const COMBOS_TABLE = 'combos';
-const RATINGS_TABLE = 'ratings';
+const query = require('../common/query');
+const {
+  COMBOS_TABLE,
+  RATINGS_TABLE,
+} = require('../common/constants');
 
 const buildGetCombosQuery = (queryParams, userId) => {
   const select = query.raw(`
@@ -30,24 +30,22 @@ const buildGetCombosQuery = (queryParams, userId) => {
   return q.orderBy('created_at', 'desc');
 };
 
-const getSqlDateTime = (date = Date.now()) =>
-  moment(date).format('YYYY-MM-DD HH:mm:ss');
-
-const buildPostCombosQuery = combo => {
-  const toInsert = Object.assign({}, combo, {
-    created_at: getSqlDateTime()
-  });
-  return query(COMBOS_TABLE).insert(toInsert);
-};
+const buildPostCombosQuery = combo => query(COMBOS_TABLE).insert(combo);
 
 const buildPutCombosQuery = (id, toUpdate) =>
   query(COMBOS_TABLE)
     .where('combo_id', id)
     .update(toUpdate);
 
+const buildDeleteQuery = (id, userId) =>
+  query(COMBOS_TABLE)
+    .where('combo_id', id)
+    .andWhere('submitted_by', userId)
+    .del();
+
 module.exports = {
+  buildDeleteQuery,
   buildGetCombosQuery,
   buildPostCombosQuery,
   buildPutCombosQuery,
-  getSqlDateTime,
 };
