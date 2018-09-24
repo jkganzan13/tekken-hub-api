@@ -1,5 +1,9 @@
 service: tekken-hub-api
 
+package:
+  exclude:
+    - '*'
+
 provider:
   name: aws
   runtime: nodejs8.10
@@ -35,7 +39,11 @@ functions:
 plugins:
   - serverless-dotenv-plugin
   - serverless-offline
+  - serverless-plugin-include-dependencies
 
 custom:
   dotenv:
     path: .env
+  includeDependencies:
+    always:
+      - 'node_modules/**/mysql/**'
