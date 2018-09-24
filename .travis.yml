@@ -1,18 +1,14 @@
 language: node_js
-
 node_js:
-  - 8
-
-script:
-  - cd functions
-  - npm install
-  - npm test
-  - cd ..
-
+- node
+cache:
+  directories:
+    - node_modules
+branches:
+  only:
+  - master
 deploy:
-  skip_cleanup: true
-  provider: firebase
-  token:
-    secure: $firebaseToken
-  on:
-    branch: master
+  - provider: script
+    script: bash scripts/deploy.sh dev
+    on:
+      branch: master

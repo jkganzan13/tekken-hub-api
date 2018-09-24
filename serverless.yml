@@ -1,0 +1,41 @@
+service: tekken-hub-api
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  role: arn:aws:iam::465641754125:role/tekken-hub-api
+  stage: dev
+  environment:
+    STAGE: ${opt:stage, self:provider.stage}
+    DB_NAME: tekkenhub_${opt:stage, self:provider.stage}
+    DB_HOST: ${env:DB_HOST}
+    DB_PORT: ${env:DB_PORT}
+    DB_USER: ${env:DB_USER}
+    DB_PWD: ${env:DB_PWD}
+
+functions:
+  tekken-hub-api:
+    handler: src/index.handler
+    name: tekken-hub-api-${opt:stage, self:provider.stage}
+    vpc:
+      securityGroupIds:
+        - sg-04235b3cd58e7859f
+      subnetIds:
+        - subnet-962d5699
+        - subnet-62ef6d3e
+        - subnet-75d5595b
+        - subnet-1fc21721
+        - subnet-5e267714
+        - subnet-3339bf54
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
+
+custom:
+  dotenv:
+    path: .env
