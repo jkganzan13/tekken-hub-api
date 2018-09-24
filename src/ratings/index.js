@@ -5,7 +5,7 @@ const {
 } = require('./queryBuilder');
 
 const del = async (req, res) => {
-  const userId = 'user1';
+  const userId = req.user.sub;
   const response = await buildDeleteQuery(req.params.id, userId);
   res.json(response);
 };
@@ -17,7 +17,7 @@ const get = async (req, res) => {
 
 const post = async (req, res) => {
   const payload = Object.assign({}, req.body, {
-    rated_by: 'user1',
+    rated_by: req.user.sub,
     rating: 1,
   });
   const response = await buildPostQuery(payload);

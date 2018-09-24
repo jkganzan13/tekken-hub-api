@@ -4,9 +4,7 @@ node_js:
 cache:
   directories:
     - node_modules
-branches:
-  only:
-  - master
+script: echo "npm test disabled"
 deploy:
   - provider: script
     script: bash scripts/deploy.sh dev
