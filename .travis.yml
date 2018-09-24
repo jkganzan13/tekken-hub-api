@@ -6,7 +6,8 @@ cache:
     - node_modules
 script: echo "npm test disabled"
 deploy:
-  - provider: script
-    script: bash scripts/deploy.sh dev
-    on:
-      branch: master
+  skip_cleanup: true
+  provider: script
+  script: bash scripts/deploy.sh dev
+  on:
+    branch: master
