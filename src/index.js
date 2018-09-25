@@ -1,16 +1,5 @@
-const serverless = require('serverless-http');
-const express = require('express');
-const applyMiddleware = require('./middleware');
-const combos = require('./combos');
-const ratings = require('./ratings');
+const api = require('./api');
+const authorizer = require('./authorizer');
 
-const app = express();
-
-// Middleware
-applyMiddleware(app);
-
-// Routes
-combos(app);
-ratings(app);
-
-module.exports.handler = serverless(app);
+module.exports.api = api;
+module.exports.authorizer = authorizer;

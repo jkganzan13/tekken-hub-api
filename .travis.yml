@@ -4,7 +4,6 @@ node_js:
 cache:
   directories:
     - node_modules
-script: echo "npm test disabled"
 deploy:
   skip_cleanup: true
   provider: script
