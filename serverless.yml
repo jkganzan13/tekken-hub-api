@@ -32,9 +32,11 @@ functions:
       - http:
           method: GET
           path: /combos
+          cors: ${self:custom.cors.${opt:stage, self:provider.stage}, self:custom.cors.other}
       - http:
           method: ANY
           path: /{proxy+}
+          cors: ${self:custom.cors.${opt:stage, self:provider.stage}, self:custom.cors.other}
           authorizer:
             name: tekken-hub-authorizer
             resultTtlInSeconds: 0
@@ -62,6 +64,9 @@ plugins:
   - serverless-plugin-include-dependencies
 
 custom:
+  cors:
+    dev: true
+    other: false
   dotenv:
     path: .env
   includeDependencies:

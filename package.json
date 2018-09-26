@@ -4,6 +4,7 @@
   "description": "<code>/moves</code> Returns frame data for all characters",
   "main": "src/index.js",
   "scripts": {
+    "bootstrap": "node scripts/bootstrap",
     "deploy": "serverless deploy",
     "local": "serverless offline start --stage local -r us-west-2 --port 3001",
     "test": "mocha --recursive --require ./test/index --timeout 10000"

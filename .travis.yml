@@ -4,9 +4,12 @@ node_js:
 cache:
   directories:
     - node_modules
+script:
+  - npm run bootstrap
 deploy:
   skip_cleanup: true
   provider: script
-  script: bash scripts/deploy.sh dev
+  script:
+    - bash scripts/deploy.sh dev
   on:
     branch: master
